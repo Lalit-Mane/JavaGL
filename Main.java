@@ -1,63 +1,29 @@
-package lalitGl.q2.driver;
+package lalitGl.lab.driver;
 
-class Node {
-	int val;
-	Node left, right;
+import java.util.Arrays;
+import java.util.Scanner;
 
-	Node(int item) {
-		val = item;
-		left = right = null;
-	}
-}
+import lalitGl.lab.service.MergeSort;
+import lalitGl.lab.service.NotesCount;
 
-class Main {
-	public static Node node;
-	static Node prevNode = null;
-	static Node headNode = null;
-
-	static void completeBSTtoSkewed(Node root) {
-
-		if (root == null) {
-			return;
-		}
-
-		completeBSTtoSkewed(root.left);
-		Node rightNode = root.right;
-		Node leftNode = root.left;
-
-		if (headNode == null) {
-			headNode = root;
-			root.left = null;
-			prevNode = root;
-		} else {
-			prevNode.right = root;
-			root.left = null;
-			prevNode = root;
-		}
-
-		completeBSTtoSkewed(rightNode);
-
-	}
-
-	static void traverseRightSkewedTree(Node root) {
-		if (root == null) {
-			return;
-		}
-		System.out.print(root.val + " ");
-		traverseRightSkewedTree(root.right);
-	}
+public class Main {
 
 	public static void main(String[] args) {
 
-		Main tree = new Main();
-		tree.node = new Node(50);
-		tree.node.left = new Node(30);
-		tree.node.right = new Node(60);
-		tree.node.left.left = new Node(10);
-		tree.node.right.left = new Node(55);
+		MergeSort mergeSortImplementation = new MergeSort();
+		NotesCount notesCount = new NotesCount();
 
-		completeBSTtoSkewed(node);
-		System.out.println("The resultant  output is :");
-		traverseRightSkewedTree(headNode);
+		System.out.println("enter the size of currency denominations ");
+		Scanner sc = new Scanner(System.in);
+		int size = sc.nextInt();
+		int[] notes = new int[size];
+		System.out.println("enter the currency denominations value");
+		for (int i = 0; i < size; i++) {
+			notes[i] = sc.nextInt();
+		}
+		System.out.println("enter the amount you want to pay");
+		int amount = sc.nextInt();
+		mergeSortImplementation.sort(notes,0,notes.length-1);
+		notesCount.notesCountImplementation(notes, amount);
 	}
 }
